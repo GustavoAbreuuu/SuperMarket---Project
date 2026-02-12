@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login - Supermercado</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container cadastro-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="emailLogin">Email:</label>
+        <input type="email" id="emailLogin" required />
+      </div>
+
+      <div class="form-group">
+        <label for="senhaLogin">Senha:</label>
+        <input type="password" id="senhaLogin" required />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save">Entrar</button>
+        <button type="button" class="register" onclick="window.location.href='cadastroUsuarioPublico.html'">
+          Cadastrar Usuário
+        </button>
+      </div>
+
+    </form>
+  </div>  
+
+<script src="script.js"></script>
+
+</body>
+</html>

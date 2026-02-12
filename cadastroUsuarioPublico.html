@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt"> 
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Usuário (Público)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container cadastro-container">
+    <h2>Cadastrar Usuário</h2>
+
+    <form id="cadastroUsuarioPublicoForm">
+      <div class="form-group">
+        <label for="nomeUsuarioPub">Nome</label>
+        <input type="text" id="nomeUsuarioPub" required />
+      </div>
+
+      <div class="form-group">
+        <label for="emailUsuarioPub">Email</label>
+        <input type="email" id="emailUsuarioPub" required />
+      </div>
+
+      <div class="form-group">
+        <label for="senhaUsuarioPub">Senha</label>
+        <input type="password" id="senhaUsuarioPub" required />
+      </div>
+
+      <div class="form-group">
+        <label for="idadeUsuarioPub">Idade</label>
+        <input type="number" id="idadeUsuarioPub" required />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save">Salvar</button>
+        <button type="button" class="cancel" onclick="window.location.href='login.html'">Voltar</button>
+      </div>
+    </form>
+  </div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

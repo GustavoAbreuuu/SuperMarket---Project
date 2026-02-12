@@ -1,0 +1,17 @@
+{
+  "name": "meu-supermercado",
+  "version": "1.0.0",
+  "description": "Sistema de supermercado com Node.js e MongoDB",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Seu Nome",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "mongoose": "^6.13.8"
+  }
+}
