@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Lista de Produtos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+  
+<body>
+  <div class="container">
+    <h2>Lista de Produtos</h2>
+    <div class="top-bar">
+      <button class="cancel" onclick="window.location.href='menu.html'">Voltar</button>
+      <input type="text" id="filtroProduto" placeholder="Buscar por nome" />
+      <button class="register" onclick="window.location.href='cadastroProduto.html'">+ Cadastrar</button>
+    </div>
+
+    <table>
+      <thead>
+          <tr>
+              <th>Código</th>
+              <th>Nome</th>
+              <th>Fornecedor</th>
+              <th>Preço</th>
+              <th>Estoque</th>
+              <th>Ações</th>
+          </tr>
+      </thead>
+      <tbody id="listaProdutos"></tbody>
+    </table>
+  </div>
+  
+<script src="script.js"></script>
+</body>
+</html>
