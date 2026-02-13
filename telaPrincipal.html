@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tela Principal - Vendas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+
+    <h2>Sistema de Vendas</h2>
+
+    <div class="pdv-top-bar">
+
+      <label for="cpfClienteVenda" style="margin-right:10px;">CPF Cliente (opcional):</label>
+      <input type="text" id="cpfClienteVenda" placeholder="Ex.: 11122233344" style="width:140px;" />
+
+      <label for="codigoProduto" style="margin-left:20px;">Cód. Produto:</label>
+      <input type="text" id="codigoProduto" placeholder="Ex.: 12345" style="width:100px;" />
+
+      <button id="btnAdicionar" class="save">Adicionar</button>
+
+      <button id="btnFinalizarVenda" class="save" style="margin-left:20px;">Finalizar Venda</button>
+
+      <button id="btnConfiguracoes" class="edit">Configurações</button>
+
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Produto</th>
+          <th>Preço</th>
+          <th>Qtd.</th>
+          <th>Subtotal</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaVendasBody"></tbody>
+    </table>
+
+    <h3 style="text-align:right; margin-right:50px;">
+      Total: R$ 
+      <span id="valorTotal">0.00</span>
+    </h3>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
