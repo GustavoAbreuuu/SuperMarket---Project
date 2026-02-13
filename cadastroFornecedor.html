@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Fornecedor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container cadastro-container">
+    <h2 id="tituloFornecedor">Cadastrar Fornecedor</h2>
+    <form id="cadastroFornecedorForm">
+      <input type="hidden" id="fornecedorId" />
+      <div class="form-group">
+        <label for="nomeFornecedor">Nome</label>
+        <input type="text" id="nomeFornecedor" required />
+      </div>
+
+      <div class="form-group">
+        <label for="telefoneFornecedor">Telefone</label>
+        <input type="text" id="telefoneFornecedor" required />
+      </div>
+      
+      <div class="form-group">
+        <label for="emailFornecedor">Email</label>
+        <input type="email" id="emailFornecedor" />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save">Salvar</button>
+        <button type="button" class="cancel" onclick="window.location.href='listaFornecedores.html'">Voltar</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
