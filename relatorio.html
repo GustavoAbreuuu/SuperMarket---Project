@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Relatório de Vendas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      text-align: center;
+      color: #444;  
+    }
+
+    #form-filtros {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 15px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #form-filtros label {
+      font-weight: bold;
+    }
+
+    input, select {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .total {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-voltar {
+      margin-top: 15px;
+      background-color: #6c757d;
+    }
+
+    .btn-voltar:hover {
+      background-color: #5a6268;
+    }
+
+    .botoes-acao {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 600px) {
+      #form-filtros {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 8px;
+      }
+
+      .botoes-acao {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Relatório de Vendas</h1>
+
+  <form id="form-filtros">
+    <label>Data Inicial:
+      <input type="date" id="dataInicial">
+    </label>
+
+    <label>Data Final:
+      <input type="date" id="dataFinal">
+    </label>
+
+    <label>Fornecedor:
+      <input type="text" id="fornecedor" placeholder="Nome do fornecedor">
+    </label>
+
+    <label>Produto:
+      <input type="text" id="produto" placeholder="Nome do produto">
+    </label>
+
+    <label>CPF:
+      <input type="text" id="cpf" placeholder="CPF do cliente">
+    </label>
+
+    <button type="submit">Filtrar</button>
+  </form>
+
+  <table id="tabela-relatorio">
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>CPF</th>
+        <th>Fornecedor</th>
+        <th>Produto</th>
+        <th>Qtd</th>
+        <th>Subtotal</th>
+        <th>Total da Venda</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="total">
+    Total Geral: R$ 
+    <span id="valorTotal">0.00</span>
+  </div>
+
+  <div class="botoes-acao">
+    <button onclick="exportarRelatorioParaExcel()">Exportar para Excel</button>
+    <button class="btn-voltar" onclick="voltarParaPrincipal()">Voltar à Principal</button>
+  </div>
+
+  <script>
+    async function carregarRelatorio(dataInicial = '', dataFinal = '', fornecedor = '', produto = '', cpf = '') {
+      try {
+        const params = new URLSearchParams();
+  
+        if (dataInicial) params.append('dataInicial', dataInicial);
+        if (dataFinal) params.append('dataFinal', dataFinal);
+        if (fornecedor) params.append('fornecedorNome', fornecedor);
+        if (produto) params.append('produtoNome', produto);
+        if (cpf) params.append('cpfCliente', cpf);
+  
+        const url = `http://127.0.0.1:3000/relatorio/vendas?${params.toString()}`;
+        console.log('Carregando relatório:', url);
+
+        const resp = await fetch(url);
+
+        if (!resp.ok) {
+          throw new Error(`Erro ao buscar relatório. HTTP Status: ${resp.status}`);
+        }
+
+        const vendas = await resp.json();
+        console.log('Vendas recebidas:', vendas);
+
+        const tabela = document.querySelector('#tabela-relatorio tbody');
+        tabela.innerHTML = '';
+
+        let somaTotal = 0;
+
+        vendas.forEach((venda) => {
+          const dataVenda = venda.data ? new Date(venda.data).toLocaleDateString('pt-BR') : '';
+          const cpfCliente = venda.clienteCpf || '';
+          const valorTotal = venda.total || 0;
+
+          somaTotal += valorTotal;
+
+          if (Array.isArray(venda.itens)) {
+            venda.itens.forEach((item) => {
+              const fornecedorNome = item.nomeFornecedor || '';
+              const produtoNome = item.nomeProduto || '';
+              const qtd = item.quantidade || 0;
+              const sub = item.subtotal || 0;
+
+              const tr = document.createElement('tr');
+
+              tr.innerHTML = `
+                <td>${dataVenda}</td>
+                <td>${cpfCliente}</td>
+                <td>${fornecedorNome}</td>
+                <td>${produtoNome}</td>
+                <td>${qtd}</td>
+                <td>R$ ${sub.toFixed(2)}</td>
+                <td>R$ ${valorTotal.toFixed(2)}</td>
+              `;
+
+              tabela.appendChild(tr);
+            });
+          }
+        });
+
+        document.getElementById('valorTotal').textContent = somaTotal.toFixed(2);
+
+      } catch (err) {
+        console.error('Erro ao carregar relatório:', err);
+        alert('Erro ao carregar relatório:\n' + err.message);
+      }
+    }
+
+    document.getElementById('form-filtros').addEventListener('submit', (ev) => {
+      ev.preventDefault();
+
+      const di = document.getElementById('dataInicial').value;
+      const df = document.getElementById('dataFinal').value;
+      const forn = document.getElementById('fornecedor').value.trim();
+      const prod = document.getElementById('produto').value.trim();
+      const cpf = document.getElementById('cpf').value.trim();
+
+      carregarRelatorio(di, df, forn, prod, cpf);
+    });
+
+    function voltarParaPrincipal() {
+      window.location.href = 'menu.html';
+    }
+
+    function exportarRelatorioParaExcel() {
+      const tabela = document.getElementById('tabela-relatorio');
+      const tabelaHead = tabela.querySelector('thead');
+      const tabelaBody = tabela.querySelector('tbody');
+
+      if (!tabelaBody || tabelaBody.rows.length === 0) {
+        alert('Não há dados na tabela para exportar!');
+        return;
+      }
+
+      let csvContent = '';
+      const headerCells = tabelaHead.querySelectorAll('th');
+      const headerArray = Array.from(headerCells).map(th => th.innerText);
+      csvContent += headerArray.join(';') + '\n';
+
+      const rows = tabelaBody.querySelectorAll('tr');
+
+      rows.forEach(row => {
+        const cells = row.querySelectorAll('td');
+        const rowData = Array.from(cells).map(td => td.innerText);
+        csvContent += rowData.join(';') + '\n';
+      });
+
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+
+      link.href = url;
+      link.setAttribute('download', 'relatorio.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const hoje = new Date();
+      const umaSemanaAtras = new Date();
+
+      umaSemanaAtras.setDate(hoje.getDate() - 7);
+
+      const dataIniStr = umaSemanaAtras.toISOString().split('T')[0];
+      const dataFimStr = hoje.toISOString().split('T')[0];
+
+      document.getElementById('dataInicial').value = dataIniStr;
+      document.getElementById('dataFinal').value = dataFimStr;
+
+      carregarRelatorio(dataIniStr, dataFimStr);
+    });
+  </script>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
