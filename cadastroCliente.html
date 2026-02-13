@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cadastro de Cliente</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container cadastro-container">
+    <h2 id="tituloCliente">Cadastrar Cliente</h2>
+    <form id="cadastroClienteForm">
+      <input type="hidden" id="clienteId" />
+
+      <div class="form-group">
+        <label for="cpfCliente">CPF</label>
+        <input type="text" id="cpfCliente" required />
+      </div>
+
+      <div class="form-group">
+        <label for="nomeCliente">Nome</label>
+        <input type="text" id="nomeCliente" required />
+      </div>
+
+      <div class="form-group">
+        <label for="telefoneCliente">Telefone</label>
+        <input type="text" id="telefoneCliente" />
+      </div>
+
+      <div class="form-group">
+        <label for="enderecoCliente">Endereço</label>
+        <input type="text" id="enderecoCliente" />
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save">Salvar</button>
+        <button type="button" class="cancel" onclick="window.location.href='listaClientes.html'">Voltar</button>
+      </div>
+    </form>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
