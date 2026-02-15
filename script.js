@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const senha = document.getElementById('senhaLogin').value;
 
       try {
-        const response = await fetch('http://localhost:3000/login', {
+        const response = await fetch('http://localhost:3000/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, senha })
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const idade = parseInt(document.getElementById('idadeUsuarioPub').value);
 
       try {
-        const resp = await fetch('http://localhost:3000/usuarios', {
+        const resp = await fetch('http://localhost:3000/api/usuarios', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nome, email, senha, idade })
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       try {
-        const resp = await fetch(`http://localhost:3000/produtos/codigo/${codigoProduto}`);
+        const resp = await fetch(`http://localhost:3000/api/produtos/codigo/${codigoProduto}`);
 
         if (!resp.ok) {
           const data = await resp.json();
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const dataFormatada = `${dataAtual.getFullYear()}-${String(dataAtual.getMonth() + 1).padStart(2, '0')}-${String(dataAtual.getDate()).padStart(2, '0')}`;
   
       try {
-          const response = await fetch('http://localhost:3000/vendas', {
+          const response = await fetch('http://localhost:3000/api/vendas', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function carregarUsuarios() {
   const filtro = document.getElementById('filtroUsuario').value.toLowerCase();
-  const response = await fetch('http://localhost:3000/usuarios');
+  const response = await fetch('http://localhost:3000/api/usuarios');
   const usuarios = await response.json();
   const lista = document.getElementById('listaUsuarios');
 
@@ -297,7 +297,7 @@ function editarUsuario(id) {
 
 async function deletarUsuario(id) {
     if (confirm('Tem certeza que deseja excluir este usuário?')) {
-        await fetch(`http://localhost:3000/usuarios/${id}`, { method: 'DELETE' });
+        await fetch(`http://localhost:3000/api/usuarios/${id}`, { method: 'DELETE' });
         alert('Usuário removido com sucesso!');
         carregarUsuarios();
     }
@@ -309,7 +309,7 @@ async function prepararFormularioUsuario() {
 
   if (usuarioId) {
     document.getElementById('tituloUsuario').textContent = 'Editar Usuário';
-    const response = await fetch(`http://localhost:3000/usuarios/${usuarioId}`);
+    const response = await fetch(`http://localhost:3000/api/usuarios/${usuarioId}`);
     const usuario = await response.json();
 
     if (usuario) {
@@ -330,14 +330,14 @@ document.getElementById('cadastroUsuarioForm').addEventListener('submit', async 
     const idade = parseInt(document.getElementById('idadeUsuario').value);
 
     if (id) {
-      await fetch(`http://localhost:3000/usuarios/${id}`, {
+      await fetch(`http://localhost:3000/api/usuarios/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nome, email, senha, idade })
       });
       alert('Usuário atualizado com sucesso!');
     } else {
-      await fetch('http://localhost:3000/usuarios', {
+      await fetch('http://localhost:3000/api/usuarios', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ nome, email, senha, idade })
@@ -350,7 +350,7 @@ document.getElementById('cadastroUsuarioForm').addEventListener('submit', async 
 
 async function carregarFornecedores() {
   const filtro = document.getElementById('filtroFornecedor').value.toLowerCase();
-  const response = await fetch('http://localhost:3000/fornecedores');
+  const response = await fetch('http://localhost:3000/api/fornecedores');
   const fornecedores = await response.json();
   const lista = document.getElementById('listaFornecedores');
 
@@ -379,7 +379,7 @@ function editarFornecedor(id) {
 
 async function deletarFornecedor(id) {
   if (confirm('Tem certeza que deseja excluir este fornecedor?')) {
-    await fetch(`http://localhost:3000/fornecedores/${id}`, { method: 'DELETE' });
+    await fetch(`http://localhost:3000/api/fornecedores/${id}`, { method: 'DELETE' });
     alert('Fornecedor removido com sucesso!');
     carregarFornecedores();
   }
@@ -391,7 +391,7 @@ async function prepararFormularioFornecedor() {
 
   if (fornecedorId) {
     document.getElementById('tituloFornecedor').textContent = 'Editar Fornecedor';
-    const response = await fetch(`http://localhost:3000/fornecedores/${fornecedorId}`);
+    const response = await fetch(`http://localhost:3000/api/fornecedores/${fornecedorId}`);
     const fornecedor = await response.json();
 
     if (fornecedor) {
@@ -410,14 +410,14 @@ async function prepararFormularioFornecedor() {
     const email = document.getElementById('emailFornecedor').value;
 
     if (id) {
-        await fetch(`http://localhost:3000/fornecedores/${id}`, {
+        await fetch(`http://localhost:3000/api/fornecedores/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nome, telefone, email })
         });
         alert('Fornecedor atualizado com sucesso!');
     } else {
-        await fetch('http://localhost:3000/fornecedores', {
+        await fetch('http://localhost:3000/api/fornecedores', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nome, telefone, email })
@@ -430,7 +430,7 @@ async function prepararFormularioFornecedor() {
 
 async function carregarProdutos() {
   const filtro = document.getElementById('filtroProduto').value.toLowerCase();
-  const response = await fetch('http://localhost:3000/produtos');
+  const response = await fetch('http://localhost:3000/api/produtos');
   const produtos = await response.json();
   const lista = document.getElementById('listaProdutos');
 
@@ -462,7 +462,7 @@ function editarProduto(id) {
 
 async function deletarProduto(id) {
     if (confirm('Tem certeza que deseja excluir este produto?')) {
-        await fetch(`http://localhost:3000/produtos/${id}`, { method: 'DELETE' });
+        await fetch(`http://localhost:3000/api/produtos/${id}`, { method: 'DELETE' });
         alert('Produto removido com sucesso!');
         carregarProdutos();
     }
@@ -477,7 +477,7 @@ async function prepararFormularioProduto() {
 
     if (produtoId) { 
     document.getElementById('tituloProduto').textContent = 'Editar Produto';
-    const response = await fetch(`http://localhost:3000/produtos/${produtoId}`);
+    const response = await fetch(`http://localhost:3000/api/produtos/${produtoId}`);
     const produto = await response.json();
 
     if (produto) {
@@ -504,14 +504,14 @@ async function prepararFormularioProduto() {
     const fornecedor = selForn.value || null;
 
     if (id) {
-      await fetch(`http://localhost:3000/produtos/${id}`, { 
+      await fetch(`http://localhost:3000/api/produtos/${id}`, { 
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ codigo, nome, descricao, preco, quantidadeEstoque, fornecedor })
       });
       alert('Produto atualizado com sucesso!');
     } else {
-      await fetch('http://localhost:3000/produtos', { 
+      await fetch('http://localhost:3000/api/produtos', { 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ codigo, nome, descricao, preco, quantidadeEstoque, fornecedor })
@@ -524,7 +524,7 @@ async function prepararFormularioProduto() {
 
 async function carregarClientes() {
   const filtro = document.getElementById('filtroCliente').value.toLowerCase();
-  const response = await fetch('http://localhost:3000/clientes');
+  const response = await fetch('http://localhost:3000/api/clientes');
   const clientes = await response.json();
   const lista = document.getElementById('listaClientes');
 
@@ -557,7 +557,7 @@ function editarCliente(id) {
 
 async function deletarCliente(id) {
     if (confirm('Tem certeza que deseja excluir este cliente?')) {
-        await fetch(`http://localhost:3000/clientes/${id}`, { method: 'DELETE' });
+        await fetch(`http://localhost:3000/api/clientes/${id}`, { method: 'DELETE' });
         alert('Cliente removido com sucesso!');
         carregarClientes();
     }
@@ -569,7 +569,7 @@ async function prepararFormularioCliente() {
 
   if (clienteId) {
     document.getElementById('tituloCliente').textContent = 'Editar Cliente';
-    const response = await fetch(`http://localhost:3000/clientes/${clienteId}`);
+    const response = await fetch(`http://localhost:3000/api/clientes/${clienteId}`);
     const cliente = await response.json();
 
     if (cliente) {
@@ -590,14 +590,14 @@ async function prepararFormularioCliente() {
     const endereco = document.getElementById('enderecoCliente').value;
 
     if (id) {
-      await fetch(`http://localhost:3000/clientes/${id}`, { 
+      await fetch(`http://localhost:3000/api/clientes/${id}`, { 
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cpf, nome, telefone, endereco }) 
       });
       alert('Cliente atualizado com sucesso!');
     } else {
-      await fetch('http://localhost:3000/clientes', {
+      await fetch('http://localhost:3000/api/clientes', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ cpf, nome, telefone, endereco }) 
@@ -609,7 +609,7 @@ async function prepararFormularioCliente() {
 }
 
 async function carregarFornecedoresNoSelect(selectElement) {
-  const resp = await fetch('http://localhost:3000/fornecedores');
+  const resp = await fetch('http://localhost:3000/api/fornecedores');
   const fornecedores = await resp.json();
 
   fornecedores.forEach(f => {
@@ -621,7 +621,7 @@ async function carregarFornecedoresNoSelect(selectElement) {
 }
 
 async function carregarProdutosNoSelect(selectElement) {
-  const resp = await fetch('http://localhost:3000/produtos');
+  const resp = await fetch('http://localhost:3000/api/produtos');
   const produtos = await resp.json();
 
   produtos.forEach(p => {
@@ -642,7 +642,7 @@ async function carregarRelatorio(dataInicial = '', dataFinal = '', fornecedor = 
     if (produto) params.append('produtoNome', produto);
     if (cpf) params.append('cpfCliente', cpf);
 
-    const url = `http://127.0.0.1:3000/relatorio/vendas?${params.toString()}`;
+    const url = `http://127.0.0.1:3000/api/relatorio/vendas?${params.toString()}`;
     console.log('Carregando relatório:', url);
 
     const resposta = await fetch(url);
