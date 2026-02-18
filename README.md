@@ -4,7 +4,7 @@
 
 O foco principal deste desenvolvimento foi a implementação de uma **Arquitetura MVC (Model-View-Controller)** robusta, a criação de uma **RESTful API** escalável e a **modularização completa** do Frontend utilizando JavaScript Moderno (ES6+).
 
-🔗 **[Clique aqui para acessar o projeto online](COLOQUE_SEU_LINK_DA_VERCEL_AQUI)**
+🔗 **[Clique aqui para acessar o projeto online](https://super-market-project-71yg.vercel.app/pages/login.html)**
 
 ---
 
