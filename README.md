@@ -68,15 +68,20 @@ supermarket-manager/
 ├── server.js             # Ponto de entrada da aplicação
 └── package.json          # Dependências e scripts
 ```
-# 👨‍💻 Como rodar o projeto localmente
-```code
-1. Clone o repositório:
-git clone [https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git](https://github.com/SEU-USUARIO/SEU-REPOSITORIO.git)
+## 👨‍💻 Como rodar o projeto localmente
+```bash
+git clone https://github.com/GustavoAbreuuu/SuperMarket---Project.git
+```
 2. Instale as dependências:
+```bash
 npm install
-3. Configure as Variáveis de Ambiente - Crie um arquivo .env na raiz e adicione sua string de conexão: 
+```
+3. Configure as Variáveis de Ambiente:
+```bash
 MONGO_URI=sua_string_de_conexao_mongodb_atlas
-4. Inicie o Servidor
+```
+4. Inicie o Servidor:
+```bash
 node server.js
+```
 5. Acesse: Abra http://localhost:3000 no seu navegador.
-
