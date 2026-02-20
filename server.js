@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.redirect('/pages/login.html');
 });
 
-app.use('/api', routes);
+    app.use('/api', routes);
 
 module.exports = app;
 

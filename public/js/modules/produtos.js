@@ -92,8 +92,8 @@ async function carregarProdutos(filtro = '') {
                 <td>R$ ${p.preco.toFixed(2)}</td>
                 <td>${p.quantidadeEstoque}</td>
                 <td class="actions">
-                    <button class="edit" data-id="${p._id}">Editar</button>
-                    <button class="delete" data-id="${p._id}">Excluir</button>
+                    <button class="edit" data-id="${p._id}" aria-label="Editar produto ${p.nome}">Editar</button>
+                    <button class="delete" data-id="${p._id}" aria-label="Excluir produto ${p.nome}">Excluir</button>
                 </td>
             `;
             tbody.appendChild(tr);

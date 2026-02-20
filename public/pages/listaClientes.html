@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="pt">
-
 <head>
   <meta charset="UTF-8" />
   <title>Lista de Clientes</title>
@@ -12,11 +11,11 @@
     <h2>Lista de Clientes</h2>
     <div class="top-bar">
       <button class="cancel" onclick="window.location.href='menu.html'">Voltar</button>
-      <input type="text" id="filtroCliente" placeholder="Buscar por nome ou CPF" />
+      <input type="text" id="filtroCliente" placeholder="Buscar por nome ou CPF" aria-label="Campo de busca de clientes por nome ou CPF" />
       <button class="register" onclick="window.location.href='cadastroCliente.html'">+ Cadastrar</button>
     </div>
 
-    <table>
+    <table aria-label="Tabela de clientes cadastrados no sistema">
       <thead>
         <tr>
           <th>CPF</th>

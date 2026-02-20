@@ -38,12 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (idEdicao) {
             document.getElementById('tituloCliente').textContent = 'Editar Cliente';
-            carregarDadosEdicao(idEdicao);
+            setTimeout(() => carregarDadosEdicao(idEdicao), 100);
         }
 
         formCadastro.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const payload = {
                 cpf: document.getElementById('cpfCliente').value,
                 nome: document.getElementById('nomeCliente').value,
@@ -86,8 +85,8 @@ async function carregarClientes(filtro = '') {
                 <td>${c.telefone || '-'}</td>
                 <td>${c.endereco || '-'}</td>
                 <td class="actions">
-                    <button class="edit" data-id="${c._id}">Editar</button>
-                    <button class="delete" data-id="${c._id}">Excluir</button>
+                    <button class="edit" data-id="${c._id}" aria-label="Editar cliente ${c.nome}">Editar</button>
+                    <button class="delete" data-id="${c._id}" aria-label="Excluir cliente ${c.nome}">Excluir</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -106,6 +105,6 @@ async function carregarDadosEdicao(id) {
         document.getElementById('telefoneCliente').value = cliente.telefone || '';
         document.getElementById('enderecoCliente').value = cliente.endereco || '';
     } catch (error) {
-        alert('Erro ao carregar dados.');
+        alert('Erro ao carregar cliente: ' + error.message);
     }
 }

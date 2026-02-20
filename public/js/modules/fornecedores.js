@@ -38,12 +38,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (idEdicao) {
             document.getElementById('tituloFornecedor').textContent = 'Editar Fornecedor';
-            carregarDadosParaEdicao(idEdicao);
+            setTimeout(() => carregarDadosParaEdicao(idEdicao), 100);
         }
 
         formCadastro.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const payload = {
                 nome: document.getElementById('nomeFornecedor').value,
                 telefone: document.getElementById('telefoneFornecedor').value,
@@ -53,10 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 if (idEdicao) {
                     await api.put(`/fornecedores/${idEdicao}`, payload);
-                    alert('Fornecedor atualizado com sucesso!');
+                    alert('Fornecedor atualizado!');
                 } else {
                     await api.post('/fornecedores', payload);
-                    alert('Fornecedor cadastrado com sucesso!');
+                    alert('Fornecedor cadastrado!');
                 }
                 window.location.href = 'listaFornecedores.html';
             } catch (error) {
@@ -83,8 +83,8 @@ async function carregarFornecedores(filtro = '') {
                 <td>${f.telefone}</td>
                 <td>${f.email || '-'}</td>
                 <td class="actions">
-                    <button class="edit" data-id="${f._id}">Editar</button>
-                    <button class="delete" data-id="${f._id}">Excluir</button>
+                    <button class="edit" data-id="${f._id}" aria-label="Editar fornecedor ${f.nome}">Editar</button>
+                    <button class="delete" data-id="${f._id}" aria-label="Excluir fornecedor ${f.nome}">Excluir</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -102,7 +102,6 @@ async function carregarDadosParaEdicao(id) {
         document.getElementById('telefoneFornecedor').value = fornecedor.telefone;
         document.getElementById('emailFornecedor').value = fornecedor.email || '';
     } catch (error) {
-        alert('Erro ao carregar dados: ' + error.message);
-        window.location.href = 'listaFornecedores.html';
+        alert('Erro ao carregar fornecedor: ' + error.message);
     }
 }

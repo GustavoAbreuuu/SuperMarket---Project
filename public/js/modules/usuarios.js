@@ -33,37 +33,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (formCadastro) {
-
         const urlParams = new URLSearchParams(window.location.search);
         const idEdicao = urlParams.get('id');
 
         if (idEdicao) {
-            document.querySelector('h2').textContent = 'Editar Usuário';
-            carregarDadosParaEdicao(idEdicao);
+            document.querySelector('#tituloUsuario').textContent = 'Editar Usuário';
+            setTimeout(() => carregarDadosParaEdicao(idEdicao), 100);
         }
 
         formCadastro.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             const payload = {
                 nome: document.getElementById('nomeUsuario').value,
                 email: document.getElementById('emailUsuario').value,
-                idade: document.getElementById('idadeUsuario').value,
-                senha: document.getElementById('senhaUsuario').value
+                idade: parseInt(document.getElementById('idadeUsuario').value)
             };
 
-            if (idEdicao && !payload.senha) {
-                delete payload.senha;
-            }
+            const senha = document.getElementById('senhaUsuario').value;
+            if (senha) payload.senha = senha;
 
             try {
                 if (idEdicao) {
                     await api.put(`/usuarios/${idEdicao}`, payload);
-                    alert('Usuário atualizado com sucesso!');
+                    alert('Usuário atualizado!');
                 } else {
-                    if (!payload.senha) return alert('A senha é obrigatória para novos usuários!');
+                    if (!senha) return alert('Senha é obrigatória para novo usuário!');
                     await api.post('/usuarios', payload);
-                    alert('Usuário cadastrado com sucesso!');
+                    alert('Usuário cadastrado!');
                 }
                 window.location.href = 'listaUsuarios.html';
             } catch (error) {
@@ -91,8 +88,8 @@ async function carregarUsuarios(filtro = '') {
                 <td>${u.email}</td>
                 <td>${u.idade}</td>
                 <td class="actions">
-                    <button class="edit" data-id="${u._id}">Editar</button>
-                    <button class="delete" data-id="${u._id}">Excluir</button>
+                    <button class="edit" data-id="${u._id}" aria-label="Editar usuário ${u.nome}">Editar</button>
+                    <button class="delete" data-id="${u._id}" aria-label="Excluir usuário ${u.nome}">Excluir</button>
                 </td>
             `;
             tbody.appendChild(tr);
@@ -108,9 +105,7 @@ async function carregarDadosParaEdicao(id) {
         document.getElementById('nomeUsuario').value = usuario.nome;
         document.getElementById('emailUsuario').value = usuario.email;
         document.getElementById('idadeUsuario').value = usuario.idade;
-
     } catch (error) {
-        alert('Erro ao carregar dados: ' + error.message);
-        window.location.href = 'listaUsuarios.html';
+        alert('Erro ao carregar usuário: ' + error.message);
     }
 }
