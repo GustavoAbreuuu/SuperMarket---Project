@@ -6,8 +6,8 @@ O foco principal deste desenvolvimento foi a implementação de uma **Arquitetur
 
 🔗 **[Clique aqui para acessar o projeto online](https://supermarket-project-83p1.onrender.com)**
 
+## Imagem de Demonstração do Projeto
 <img width="1918" height="854" alt="Captura de tela 2026-03-02 151114" src="https://github.com/user-attachments/assets/0f921910-35fd-48b5-9ad5-6ac434d5758a" />
----
 
 ## 🚀 Funcionalidades Principais & Arquitetura
 
