@@ -40,6 +40,18 @@ h1, h2 {
   width: 250px;
 }
 
+.menu-principal button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+}
+
+.menu-principal button:hover {
+  background: #0056b3;
+}
+
 .top-bar, .pdv-top-bar {
   display: flex;
   align-items: center;
