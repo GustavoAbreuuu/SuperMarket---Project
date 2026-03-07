@@ -113,8 +113,8 @@ button.register { background-color: #007bff; color: white; }
 button.save     { background-color: #28a745; color: white; }
 button.edit     { background-color: #ffc107; color: white; }
 button.delete   { background-color: #dc3545; color: white; }
-button.cancel   { background-color: #6c757d; color: white; } 
-button.cancel:hover { background-color: #5a6268; }
+button.cancel   { background-color: #dc3545; color: white; } 
+button.cancel:hover { background-color: #c82333; }
 
 .botoes-acao {
   display: flex;
