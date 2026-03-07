@@ -13,15 +13,15 @@
 
     <div class="pdv-top-bar">
 
-      <label for="cpfClienteVenda" style="margin-right:10px;">CPF Cliente (opcional):</label>
-      <input type="text" id="cpfClienteVenda" placeholder="Ex.: 11122233344" style="width:140px;" />
+      <label for="cpfClienteVenda">CPF Cliente (opcional):</label>
+      <input type="text" id="cpfClienteVenda" placeholder="Ex.: 11122233344" />
 
-      <label for="codigoProduto" style="margin-left:20px;">Cód. Produto:</label>
-      <input type="text" id="codigoProduto" placeholder="Ex.: 12345" style="width:100px;" />
+      <label for="codigoProduto">Cód. Produto:</label>
+      <input type="text" id="codigoProduto" placeholder="Ex.: 12345" />
 
       <button id="btnAdicionar" class="save">Adicionar</button>
 
-      <button id="btnFinalizarVenda" class="save" style="margin-left:20px;">Finalizar Venda</button>
+      <button id="btnFinalizarVenda" class="save">Finalizar Venda</button>
 
       <button id="btnConfiguracoes" class="edit">Configurações</button>
 
@@ -40,7 +40,7 @@
       <tbody id="tabelaVendasBody"></tbody>
     </table>
 
-    <h3 style="text-align:right; margin-right:50px;" aria-live="polite" aria-atomic="true">
+    <h3 class="total" aria-live="polite" aria-atomic="true">
       Total: R$ 
       <span id="valorTotal">0.00</span>
     </h3>
