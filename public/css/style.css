@@ -139,11 +139,6 @@ tr:hover {
   background-color: #f1f1f1;
 }
 
-.total {
-  text-align: right;
-  margin-left: 50px;
-}
-
 .actions {
   display: flex;
   justify-content: center;
