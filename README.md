@@ -94,6 +94,11 @@ O foco principal deste desenvolvimento foi a implementação de uma **Arquitetur
 
 <img width="1917" height="851" alt="Captura de tela 2026-03-02 152451" src="https://github.com/user-attachments/assets/2f320d48-bc84-47bf-ba58-66b227810395" />
 
+### 8. Relatório de Vendas (Dashboard Analítico) - Módulo analítico dedicado a auditoria e controle de faturamento do mercado.
+**UX/UI**: Interface focada puramente na leitura de dados financeiros. Possui seletores de período de fácil acesso (Data Inicial e Data Final) e uma tabela expandida que detalha minuciosamente cada transação. O "Total Geral" ganha destaque em negrito no rodapé da tabela para visualização imediata do faturamento.
+
+**Lógica de Negócio**: Pensando em produtividade, o módulo já carrega nativamente exibindo as vendas dos últimos 7 dias. O algoritmo de filtragem captura os inputs de data, formata para comparar com os registros do banco de dados, desmembra os carrinhos de compra para exibir o subtotal de cada produto vendido individualmente, e recalcula dinamicamente a soma do "Total Geral" daquele período.
+
 ## 📂 Estrutura do Projeto
 
 O projeto segue uma organização estrita de arquivos para separar o código público (Frontend) da lógica de servidor (Backend):
