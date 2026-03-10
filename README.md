@@ -99,6 +99,8 @@ O foco principal deste desenvolvimento foi a implementação de uma **Arquitetur
 
 **Lógica de Negócio**: Pensando em produtividade, o módulo já carrega nativamente exibindo as vendas dos últimos 7 dias. O algoritmo de filtragem captura os inputs de data, formata para comparar com os registros do banco de dados, desmembra os carrinhos de compra para exibir o subtotal de cada produto vendido individualmente, e recalcula dinamicamente a soma do "Total Geral" daquele período.
 
+<img width="1919" height="872" alt="Captura de tela 2026-03-10 181500" src="https://github.com/user-attachments/assets/8c3da568-aff0-416b-acc6-8b7367cd8ee9" />
+
 ## 📂 Estrutura do Projeto
 
 O projeto segue uma organização estrita de arquivos para separar o código público (Frontend) da lógica de servidor (Backend):
