@@ -70,7 +70,7 @@ async function carregarClientes(filtro = '') {
     try {
         const clientes = await api.get('/clientes');
         const tbody = document.getElementById('listaClientes');
-        tbody.innerHTML = '';
+        tbody.replaceChildren();
 
         const filtrados = clientes.filter(c => 
             c.nome.toLowerCase().includes(filtro.toLowerCase()) ||
@@ -79,16 +79,36 @@ async function carregarClientes(filtro = '') {
 
         filtrados.forEach(c => {
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${c.cpf}</td>
-                <td>${c.nome}</td>
-                <td>${c.telefone || '-'}</td>
-                <td>${c.endereco || '-'}</td>
-                <td class="actions">
-                    <button class="edit" data-id="${c._id}" aria-label="Editar cliente ${c.nome}">Editar</button>
-                    <button class="delete" data-id="${c._id}" aria-label="Excluir cliente ${c.nome}">Excluir</button>
-                </td>
-            `;
+
+            const tdCpf = document.createElement('td');
+            tdCpf.textContent = c.cpf;
+
+            const tdNome = document.createElement('td');
+            tdNome.textContent = c.nome;
+
+            const tdTelefone = document.createElement('td');
+            tdTelefone.textContent = c.telefone || '-';
+
+            const tdEndereco = document.createElement('td');
+            tdEndereco.textContent = c.endereco || '-';
+
+            const tdActions = document.createElement('td');
+            tdActions.className = 'actions';
+
+            const btnEdit = document.createElement('button');
+            btnEdit.className = 'edit';
+            btnEdit.dataset.id = c._id;
+            btnEdit.setAttribute('aria-label', `Editar cliente ${c.nome}`);
+            btnEdit.textContent = 'Editar';
+
+            const btnDelete = document.createElement('button');
+            btnDelete.className = 'delete';
+            btnDelete.dataset.id = c._id;
+            btnDelete.setAttribute('aria-label', `Excluir cliente ${c.nome}`);
+            btnDelete.textContent = 'Excluir';
+
+            tdActions.append(btnEdit, btnDelete);
+            tr.append(tdCpf, tdNome, tdTelefone, tdEndereco, tdActions);
             tbody.appendChild(tr);
         });
     } catch (error) {

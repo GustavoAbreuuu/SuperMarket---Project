@@ -74,7 +74,7 @@ async function carregarUsuarios(filtro = '') {
     try {
         const usuarios = await api.get('/usuarios');
         const tbody = document.getElementById('listaUsuarios');
-        tbody.innerHTML = '';
+        tbody.replaceChildren();
 
         const filtrados = usuarios.filter(u => 
             u.nome.toLowerCase().includes(filtro.toLowerCase()) || 
@@ -83,15 +83,33 @@ async function carregarUsuarios(filtro = '') {
 
         filtrados.forEach(u => {
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${u.nome}</td>
-                <td>${u.email}</td>
-                <td>${u.idade}</td>
-                <td class="actions">
-                    <button class="edit" data-id="${u._id}" aria-label="Editar usuário ${u.nome}">Editar</button>
-                    <button class="delete" data-id="${u._id}" aria-label="Excluir usuário ${u.nome}">Excluir</button>
-                </td>
-            `;
+
+            const tdNome = document.createElement('td');
+            tdNome.textContent = u.nome;
+
+            const tdEmail = document.createElement('td');
+            tdEmail.textContent = u.email;
+
+            const tdIdade = document.createElement('td');
+            tdIdade.textContent = u.idade;
+
+            const tdActions = document.createElement('td');
+            tdActions.className = 'actions';
+
+            const btnEdit = document.createElement('button');
+            btnEdit.className = 'edit';
+            btnEdit.dataset.id = u._id;
+            btnEdit.setAttribute('aria-label', `Editar usuário ${u.nome}`);
+            btnEdit.textContent = 'Editar';
+
+            const btnDelete = document.createElement('button');
+            btnDelete.className = 'delete';
+            btnDelete.dataset.id = u._id;
+            btnDelete.setAttribute('aria-label', `Excluir usuário ${u.nome}`);
+            btnDelete.textContent = 'Excluir';
+
+            tdActions.append(btnEdit, btnDelete);
+            tr.append(tdNome, tdEmail, tdIdade, tdActions);
             tbody.appendChild(tr);
         });
     } catch (error) {

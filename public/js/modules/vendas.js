@@ -3,14 +3,12 @@ import { api } from '../services/api.js';
 let itensVenda = [];
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Referências aos elementos da tela
     const btnAdicionar = document.getElementById('btnAdicionar');
     const btnFinalizar = document.getElementById('btnFinalizarVenda');
     const inputCodigo = document.getElementById('codigoProduto');
     const inputCpf = document.getElementById('cpfClienteVenda');
     const btnConfig = document.getElementById('btnConfiguracoes');
     
-
     if(inputCodigo) inputCodigo.focus();
 
     if (btnAdicionar) {
@@ -104,22 +102,35 @@ function removerItem(index) {
 function atualizarTabela() {
     const tbody = document.getElementById('tabelaVendasBody');
     const spanTotal = document.getElementById('valorTotal');
-    tbody.innerHTML = '';
+    tbody.replaceChildren();
     let total = 0;
 
     itensVenda.forEach((item, index) => {
         total += item.subtotal;
         
         const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${item.nomeProduto}</td>
-            <td>R$ ${item.precoUnitario.toFixed(2)}</td>
-            <td>${item.quantidade}</td>
-            <td>R$ ${item.subtotal.toFixed(2)}</td>
-            <td>
-                <button class="delete" data-index="${index}">Remover</button>
-            </td>
-        `;
+
+        const tdProduto = document.createElement('td');
+        tdProduto.textContent = item.nomeProduto;
+
+        const tdPreco = document.createElement('td');
+        tdPreco.textContent = `R$ ${item.precoUnitario.toFixed(2)}`;
+
+        const tdQtd = document.createElement('td');
+        tdQtd.textContent = item.quantidade;
+
+        const tdSubtotal = document.createElement('td');
+        tdSubtotal.textContent = `R$ ${item.subtotal.toFixed(2)}`;
+
+        const tdActions = document.createElement('td');
+        
+        const btnDelete = document.createElement('button');
+        btnDelete.className = 'delete';
+        btnDelete.dataset.index = index;
+        btnDelete.textContent = 'Remover';
+
+        tdActions.appendChild(btnDelete);
+        tr.append(tdProduto, tdPreco, tdQtd, tdSubtotal, tdActions);
         tbody.appendChild(tr);
     });
 

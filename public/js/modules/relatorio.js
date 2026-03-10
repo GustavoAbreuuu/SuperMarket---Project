@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 async function carregarRelatorio() {
     try {
         const vendas = await api.get('/vendas');
-        
+
         const dataIni = new Date(document.getElementById('dataInicial').value);
         const dataFim = new Date(document.getElementById('dataFinal').value);
 
@@ -35,10 +35,10 @@ async function carregarRelatorio() {
 
         const tbody = document.querySelector('#tabela-relatorio tbody');
         const spanTotal = document.getElementById('valorTotal');
-        
+
         if (!tbody) return;
 
-        tbody.innerHTML = '';
+        tbody.replaceChildren();
         let totalGeral = 0;
 
         const vendasFiltradas = vendas.filter(venda => {
@@ -52,14 +52,26 @@ async function carregarRelatorio() {
 
             venda.itens.forEach(item => {
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${dataFormatada}</td>
-                    <td>${venda.clienteCpf || 'N/A'}</td>
-                    <td>${item.nomeProduto}</td>
-                    <td>${item.quantidade}</td>
-                    <td>R$ ${item.precoUnitario.toFixed(2)}</td>
-                    <td>R$ ${item.subtotal.toFixed(2)}</td>
-                `;
+
+                const tdData = document.createElement('td');
+                tdData.textContent = dataFormatada;
+
+                const tdCpf = document.createElement('td');
+                tdCpf.textContent = venda.clienteCpf || 'N/A';
+
+                const tdProduto = document.createElement('td');
+                tdProduto.textContent = item.nomeProduto;
+
+                const tdQtd = document.createElement('td');
+                tdQtd.textContent = item.quantidade;
+
+                const tdPreco = document.createElement('td');
+                tdPreco.textContent = `R$ ${item.precoUnitario.toFixed(2)}`;
+
+                const tdSubtotal = document.createElement('td');
+                tdSubtotal.textContent = `R$ ${item.subtotal.toFixed(2)}`;
+
+                tr.append(tdData, tdCpf, tdProduto, tdQtd, tdPreco, tdSubtotal);
                 tbody.appendChild(tr);
             });
         });

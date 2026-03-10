@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (formCadastro) {
         const selectFornecedor = document.getElementById('fornecedorProduto');
-        carregarFornecedoresSelect(selectFornecedor); // Preenche o dropdown
+        carregarFornecedoresSelect(selectFornecedor);
 
         const urlParams = new URLSearchParams(window.location.search);
         const idEdicao = urlParams.get('id');
@@ -76,26 +76,47 @@ async function carregarProdutos(filtro = '') {
     try {
         const produtos = await api.get('/produtos');
         const tbody = document.getElementById('listaProdutos');
-        tbody.innerHTML = '';
+        tbody.replaceChildren();
 
         const filtrados = produtos.filter(p => 
             p.nome.toLowerCase().includes(filtro.toLowerCase())
         );
 
         filtrados.forEach(p => {
-            const nomeFornecedor = p.fornecedor ? p.fornecedor.nome : '-';
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${p.codigo}</td>
-                <td>${p.nome}</td>
-                <td>${nomeFornecedor}</td>
-                <td>R$ ${p.preco.toFixed(2)}</td>
-                <td>${p.quantidadeEstoque}</td>
-                <td class="actions">
-                    <button class="edit" data-id="${p._id}" aria-label="Editar produto ${p.nome}">Editar</button>
-                    <button class="delete" data-id="${p._id}" aria-label="Excluir produto ${p.nome}">Excluir</button>
-                </td>
-            `;
+
+            const tdCodigo = document.createElement('td');
+            tdCodigo.textContent = p.codigo;
+
+            const tdNome = document.createElement('td');
+            tdNome.textContent = p.nome;
+
+            const tdFornecedor = document.createElement('td');
+            tdFornecedor.textContent = p.fornecedor ? p.fornecedor.nome : '-';
+
+            const tdPreco = document.createElement('td');
+            tdPreco.textContent = `R$ ${p.preco.toFixed(2)}`;
+
+            const tdEstoque = document.createElement('td');
+            tdEstoque.textContent = p.quantidadeEstoque;
+
+            const tdActions = document.createElement('td');
+            tdActions.className = 'actions';
+
+            const btnEdit = document.createElement('button');
+            btnEdit.className = 'edit';
+            btnEdit.dataset.id = p._id;
+            btnEdit.setAttribute('aria-label', `Editar produto ${p.nome}`);
+            btnEdit.textContent = 'Editar';
+
+            const btnDelete = document.createElement('button');
+            btnDelete.className = 'delete';
+            btnDelete.dataset.id = p._id;
+            btnDelete.setAttribute('aria-label', `Excluir produto ${p.nome}`);
+            btnDelete.textContent = 'Excluir';
+
+            tdActions.append(btnEdit, btnDelete);
+            tr.append(tdCodigo, tdNome, tdFornecedor, tdPreco, tdEstoque, tdActions);
             tbody.appendChild(tr);
         });
     } catch (error) {

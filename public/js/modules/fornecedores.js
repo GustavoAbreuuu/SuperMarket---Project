@@ -70,7 +70,7 @@ async function carregarFornecedores(filtro = '') {
     try {
         const fornecedores = await api.get('/fornecedores');
         const tbody = document.getElementById('listaFornecedores');
-        tbody.innerHTML = '';
+        tbody.replaceChildren();
 
         const filtrados = fornecedores.filter(f => 
             f.nome.toLowerCase().includes(filtro.toLowerCase())
@@ -78,15 +78,33 @@ async function carregarFornecedores(filtro = '') {
 
         filtrados.forEach(f => {
             const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${f.nome}</td>
-                <td>${f.telefone}</td>
-                <td>${f.email || '-'}</td>
-                <td class="actions">
-                    <button class="edit" data-id="${f._id}" aria-label="Editar fornecedor ${f.nome}">Editar</button>
-                    <button class="delete" data-id="${f._id}" aria-label="Excluir fornecedor ${f.nome}">Excluir</button>
-                </td>
-            `;
+
+            const tdNome = document.createElement('td');
+            tdNome.textContent = f.nome;
+
+            const tdTelefone = document.createElement('td');
+            tdTelefone.textContent = f.telefone;
+
+            const tdEmail = document.createElement('td');
+            tdEmail.textContent = f.email || '-';
+
+            const tdActions = document.createElement('td');
+            tdActions.className = 'actions';
+
+            const btnEdit = document.createElement('button');
+            btnEdit.className = 'edit';
+            btnEdit.dataset.id = f._id;
+            btnEdit.setAttribute('aria-label', `Editar fornecedor ${f.nome}`);
+            btnEdit.textContent = 'Editar';
+
+            const btnDelete = document.createElement('button');
+            btnDelete.className = 'delete';
+            btnDelete.dataset.id = f._id;
+            btnDelete.setAttribute('aria-label', `Excluir fornecedor ${f.nome}`);
+            btnDelete.textContent = 'Excluir';
+
+            tdActions.append(btnEdit, btnDelete);
+            tr.append(tdNome, tdTelefone, tdEmail, tdActions);
             tbody.appendChild(tr);
         });
     } catch (error) {
