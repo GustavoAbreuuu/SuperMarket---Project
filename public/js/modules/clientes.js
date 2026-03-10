@@ -43,8 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
         formCadastro.addEventListener('submit', async (e) => {
             e.preventDefault();
+
+            // Pegamos o valor do CPF e removemos espaços em branco nas pontas
+            const cpfDigitado = document.getElementById('cpfCliente').value.trim();
+
+            // Validação: Verifica se o CPF tem exatamente 11 dígitos
+            if (cpfDigitado.length !== 11) {
+                alert('Atenção: O CPF inserido não possui o número de caracteres suficiente. Digite exatamente 11 números.');
+                return; // O 'return' faz o código parar aqui e não envia para o banco
+            }
+
             const payload = {
-                cpf: document.getElementById('cpfCliente').value,
+                cpf: cpfDigitado, // Usa o CPF que já passou na validação
                 nome: document.getElementById('nomeCliente').value,
                 telefone: document.getElementById('telefoneCliente').value,
                 endereco: document.getElementById('enderecoCliente').value
@@ -70,7 +80,7 @@ async function carregarClientes(filtro = '') {
     try {
         const clientes = await api.get('/clientes');
         const tbody = document.getElementById('listaClientes');
-        tbody.replaceChildren();
+        tbody.replaceChildren(); // Forma moderna e segura de limpar a tabela
 
         const filtrados = clientes.filter(c => 
             c.nome.toLowerCase().includes(filtro.toLowerCase()) ||
