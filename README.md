@@ -74,7 +74,7 @@ O foco principal deste desenvolvimento foi a implementação de uma **Arquitetur
 <img width="1919" height="851" alt="Captura de tela 2026-03-02 152237" src="https://github.com/user-attachments/assets/0c62f4d2-e12c-4496-b626-77061956a8e1" />
 
 ### 5. Gerenciamento de Produtos - Núcleo do controle de estoque do supermercado, desenhado para visualização rápida de métricas financeiras e de inventário.
-**UX/UI:** Apresenta dados vitais de prateleira: Código de barras, Nome, Preço (formatado em Reais R$) e a Quantidade exata em Estoque.
+**UX/UI:** Apresenta dados vitais de prateleira: Código de barras, Nome, Fornecedor, Preçoo e a Quantidade exata em Estoque.
 
 **Lógica de Negócio:** Realiza um cruzamento de dados (Relacionamento) com a base de fornecedores. Em vez de exibir um "ID" ilegível, o front-end trata a resposta da API e renderiza o Nome do Fornecedor vinculado àquele produto.
 
