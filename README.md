@@ -90,7 +90,7 @@ O foco principal deste desenvolvimento foi a implementação de uma **Arquitetur
 ### 7. Gerenciamento de Clientes - Base de dados do público final, ideal para integração futura com programas de fidelidade ou emissão de notas fiscais.
 **UX/UI**: Estrutura tabular contendo CPF, Nome, Telefone e Endereço. A tela mantém o layout fluido que se adapta perfeitamente em telas maiores.
 
-**Lógica de Negócio:** Possui um algoritmo de filtragem avançado (.filter()) no front-end que avalia duas condições simultaneamente: o operador do caixa pode buscar o cliente digitando o Nome ou rapidamente bipando/digitando o CPF.
+**Lógica de Negócio:** Possui um algoritmo de filtragem avançado **filter()** no front-end que avalia duas condições simultaneamente: o operador do caixa pode buscar o cliente digitando o Nome ou rapidamente bipando/digitando o CPF.
 
 <img width="1917" height="851" alt="Captura de tela 2026-03-02 152451" src="https://github.com/user-attachments/assets/2f320d48-bc84-47bf-ba58-66b227810395" />
 
