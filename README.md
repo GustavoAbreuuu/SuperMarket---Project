@@ -59,8 +59,7 @@ O foco principal deste desenvolvimento foi a implementação de uma **Arquitetur
 
 <img width="1918" height="854" alt="Captura de tela 2026-03-02 151114" src="https://github.com/user-attachments/assets/7b2f3e4c-1ac7-4048-b7c4-a04c7b53a16c" />
 
-### 3. Dashboard de Gestão (Menu de Configurações)
-Central de roteamento do sistema administrativo.
+### 3. Dashboard de Gestão (Menu de Configurações) - Central de roteamento do sistema administrativo.
 **UX/UI:** Botões em bloco, intuitivos e com alto contraste, dividindo a aplicação em domínios claros ( Gerenciar Usuários, Gerenciar Produtos, Gerenciar Fornecedores, Gerenciar Clientes e Relatórios).
 
 **Lógica de Navegação:** Isola o ambiente de vendas do ambiente administrativo, garantindo que o fluxo de trabalho não seja interrompido.
@@ -74,7 +73,7 @@ Central de roteamento do sistema administrativo.
 
 <img width="1919" height="851" alt="Captura de tela 2026-03-02 152237" src="https://github.com/user-attachments/assets/0c62f4d2-e12c-4496-b626-77061956a8e1" />
 
-### 5. Gerenciamento de Produtos - O núcleo do controle de estoque do supermercado, desenhado para visualização rápida de métricas financeiras e de inventário.
+### 5. Gerenciamento de Produtos - Núcleo do controle de estoque do supermercado, desenhado para visualização rápida de métricas financeiras e de inventário.
 **UX/UI:** Apresenta dados vitais de prateleira: Código de barras, Nome, Preço (formatado em Reais R$) e a Quantidade exata em Estoque.
 
 **Lógica de Negócio:** Realiza um cruzamento de dados (Relacionamento) com a base de fornecedores. Em vez de exibir um "ID" ilegível, o front-end trata a resposta da API e renderiza o Nome do Fornecedor vinculado àquele produto.
